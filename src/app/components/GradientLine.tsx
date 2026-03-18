@@ -1,14 +1,19 @@
 import React, { useMemo } from 'react'
 import * as THREE from 'three'
-import { extend, useFrame } from '@react-three/fiber'
 
 /**
  * Custom Gradient Line Component
  * - Takes `startColor` and `endColor` for the gradient
  * - Draws a line with color interpolation between two points
  */
-export default function GradientLine({ start, end, startColor, endColor }) {
-  const lineRef = React.useRef<THREE.Line>(null)
+export default function GradientLine({ start, end, startColor, endColor }: {
+  start: [number, number, number];
+  end: [number, number, number];
+  startColor: string;
+  endColor: string;
+}) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const lineRef = React.useRef<any>(null)
 
   // Convert color strings to Three.js Color objects
   const colorStart = new THREE.Color(startColor)
@@ -25,6 +30,7 @@ export default function GradientLine({ start, end, startColor, endColor }) {
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     lineGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
     return lineGeometry
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start, end, startColor, endColor])
 
   return (

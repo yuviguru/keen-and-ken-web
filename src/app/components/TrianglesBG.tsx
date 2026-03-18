@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
-import { Line } from '@react-three/drei'
+import * as THREE from 'three'
 import { generateSpiralTriangles } from '../utils/generateSpiralTriangles'
 import GradientLine from './GradientLine'
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 export default function TrianglesBG() {
-	const groupRef = useRef(null)
+	const groupRef = useRef<THREE.Group>(null)
   // Generate our 50 nested triangles with rotation effect
   const TRI_DEFS = generateSpiralTriangles(50, 1, 0.045) // Adjust scale & rotation
   

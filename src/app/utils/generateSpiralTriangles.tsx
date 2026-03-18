@@ -35,8 +35,8 @@ export function generateSpiralTriangles(
       const dy = y - centerY
 
       // Scale outward
-      let newX = centerX + dx * scale
-      let newY = centerY + dy * scale
+      const newX = centerX + dx * scale
+      const newY = centerY + dy * scale
 
       // Apply rotation transformation using 2D rotation matrix
       const rotatedX = centerX + (newX - centerX) * Math.cos(angle) - (newY - centerY) * Math.sin(angle)

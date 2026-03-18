@@ -2,7 +2,7 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import TrianglesBG from "./TrianglesBG";
-import { SoftShadows, OrbitControls } from "@react-three/drei";
+// import { SoftShadows, OrbitControls } from "@react-three/drei";
 import Particles from "./Particles";
 import CenterSphere from "./CenterSphere";
 

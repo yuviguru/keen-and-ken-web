@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useLoader } from '@react-three/fiber'
+// @ts-expect-error - Three.js examples loader types
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { Mesh } from 'three'
 

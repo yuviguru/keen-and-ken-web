@@ -34,9 +34,7 @@ export default function Particles() {
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
-          array={positions}
-          count={positions.length / 3}
-          itemSize={3} // Each vertex has x, y, z
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.4} transparent opacity={0.5} color="white" />
