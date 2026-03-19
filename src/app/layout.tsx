@@ -50,14 +50,6 @@ export const metadata: Metadata = {
       "We build AI systems that run your business. Custom AI agents, workflow automation, enterprise platforms, and AI-powered digital products.",
     url: "https://keenken.com",
     siteName: "Keen & Ken",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Keen & Ken - AI Automation & Development Services",
-      },
-    ],
     type: "website",
     locale: "en_US",
   },
@@ -66,7 +58,6 @@ export const metadata: Metadata = {
     title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
     description:
       "Custom AI agents, workflow automation, and intelligent software development. Book a free AI consultation.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
