@@ -7,6 +7,7 @@ import {
   type Node,
   type Edge,
   Position,
+  BezierEdge,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
@@ -50,6 +51,7 @@ function HubNode() {
 }
 
 const nodeTypes = { hub: HubNode };
+const edgeTypes = { bezier: BezierEdge };
 
 // ─── Shared styles ───────────────────────────────────────────
 const catStyle: React.CSSProperties = {
@@ -246,6 +248,7 @@ export default function ProductsOrbit() {
           nodes={initialNodes}
           edges={initialEdges}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           fitView
           fitViewOptions={{ padding: 0.05 }}
           proOptions={{ hideAttribution: true }}

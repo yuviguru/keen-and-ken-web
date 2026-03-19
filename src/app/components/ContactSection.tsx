@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { User, Building2, Phone, Mail, CheckCircle, type LucideIcon } from "lucide-react";
+import { User, Building2, Phone, Mail, MessageSquare, CheckCircle, type LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import GradientButton from "./GradientButton";
 
@@ -17,6 +17,7 @@ const fields: FieldConfig[] = [
   { name: "email", label: "Email Address", type: "email", icon: Mail, required: true },
   { name: "company", label: "Company Name", type: "text", icon: Building2 },
   { name: "contact", label: "Contact Number", type: "tel", icon: Phone, required: true },
+  { name: "message", label: "Tell us about your project", type: "textarea", icon: MessageSquare },
 ];
 
 function FloatingInput({
@@ -26,15 +27,23 @@ function FloatingInput({
 }: {
   field: FieldConfig;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
   const [focused, setFocused] = useState(false);
   const isActive = focused || value.length > 0;
   const Icon = field.icon;
+  const isTextarea = field.type === "textarea";
+
+  const sharedClasses = `peer w-full pl-12 pr-5 pt-5 pb-2 rounded-xl
+    bg-white/[0.03] border border-white/[0.08]
+    text-white text-sm outline-none
+    transition-all duration-300
+    focus:border-[var(--accent-magenta)]/40
+    focus:bg-white/[0.05]`;
 
   return (
     <div className="relative group">
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+      <div className={`absolute left-4 pointer-events-none z-10 ${isTextarea ? "top-4" : "top-1/2 -translate-y-1/2"}`}>
         <Icon
           className={`w-4 h-4 transition-colors duration-300 ${
             isActive ? "text-[var(--accent-magenta)]" : "text-white/20"
@@ -42,29 +51,40 @@ function FloatingInput({
         />
       </div>
 
-      <input
-        type={field.type}
-        name={field.name}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        required={field.required}
-        placeholder=" "
-        className="peer w-full pl-12 pr-5 pt-5 pb-2 rounded-xl
-          bg-white/[0.03] border border-white/[0.08]
-          text-white text-sm outline-none
-          transition-all duration-300
-          focus:border-[var(--accent-magenta)]/40
-          focus:bg-white/[0.05]"
-      />
+      {isTextarea ? (
+        <textarea
+          name={field.name}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={field.required}
+          placeholder=" "
+          rows={4}
+          className={`${sharedClasses} resize-none`}
+        />
+      ) : (
+        <input
+          type={field.type}
+          name={field.name}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={field.required}
+          placeholder=" "
+          className={sharedClasses}
+        />
+      )}
 
       <label
         className={`absolute left-12 pointer-events-none transition-all duration-300
           ${
             isActive
               ? "top-1.5 text-[10px] text-[var(--accent-magenta)]/70"
-              : "top-1/2 -translate-y-1/2 text-sm text-white/25"
+              : isTextarea
+                ? "top-4 text-sm text-white/25"
+                : "top-1/2 -translate-y-1/2 text-sm text-white/25"
           }`}
       >
         {field.label}
@@ -79,11 +99,12 @@ export default function ContactSection() {
     email: "",
     company: "",
     contact: "",
+    message: "",
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -105,7 +126,7 @@ export default function ContactSection() {
       }
 
       setStatus("success");
-      setFormData({ name: "", email: "", company: "", contact: "" });
+      setFormData({ name: "", email: "", company: "", contact: "", message: "" });
     } catch (err) {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");

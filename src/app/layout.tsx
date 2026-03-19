@@ -220,6 +220,7 @@ export default function RootLayout({
         />
       </head>
       <body
+        suppressHydrationWarning
         className={`${manrope.variable} ${dmSans.variable} ${firaCode.variable} antialiased`}
       >
         {children}

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, company, contact } = await request.json();
+    const { name, email, company, contact, message } = await request.json();
 
     if (!name || !email || !contact) {
       return NextResponse.json(
@@ -23,6 +23,7 @@ export async function POST(request: Request) {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Company:</strong> ${company || "Not provided"}</p>
         <p><strong>Phone:</strong> ${contact}</p>
+        ${message ? `<p><strong>Message:</strong></p><p>${message}</p>` : ""}
         <hr />
         <p style="color: #666; font-size: 12px;">Sent from keenken.com contact form</p>
       `,
