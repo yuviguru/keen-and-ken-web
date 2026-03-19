@@ -1,21 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import GradientButton from "./GradientButton";
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.4 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
 
 export default function HeroSection() {
   return (
@@ -70,15 +55,10 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Content */}
-      <motion.div
-        className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 text-center"
-        variants={stagger}
-        initial="hidden"
-        animate="visible"
-      >
+      {/* Content — CSS animation only */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 text-center animate-fade-in">
         {/* Social proof badge */}
-        <motion.div variants={fadeUp} className="mb-8 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04]">
             <div className="flex -space-x-2">
               {[
@@ -96,26 +76,20 @@ export default function HeroSection() {
               Trusted by growing businesses
             </span>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.h1
-          variants={fadeUp}
-          className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.5rem] font-extrabold leading-[1.2] tracking-[var(--ls-tight)] text-white max-w-5xl mx-auto"
-        >
+        <h1 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.5rem] font-extrabold leading-[1.2] tracking-[var(--ls-tight)] text-white max-w-5xl mx-auto">
           We Build AI Systems
           <br />
           That Run Your Business
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          variants={fadeUp}
-          className="mt-6 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/50 max-w-2xl mx-auto leading-[var(--lh-relaxed)] tracking-[var(--ls-body)]"
-        >
+        <p className="mt-6 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/50 max-w-2xl mx-auto leading-[var(--lh-relaxed)] tracking-[var(--ls-body)]">
           Custom AI agents, workflow automation, and full-stack products —
           so you can scale without scaling headcount.
-        </motion.p>
+        </p>
 
-        <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <GradientButton
             size="lg"
             variant="primary"
@@ -134,8 +108,8 @@ export default function HeroSection() {
           >
             See Our Services
           </GradientButton>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

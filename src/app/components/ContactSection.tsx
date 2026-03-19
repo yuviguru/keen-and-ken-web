@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { User, Building2, Phone, Mail, MessageSquare, CheckCircle, type LucideIcon } from "lucide-react";
-import { motion } from "framer-motion";
 import GradientButton from "./GradientButton";
 
 interface FieldConfig {
@@ -149,12 +148,7 @@ export default function ContactSection() {
 
       <div className="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left side */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <p className="section-label mb-4">
             Get In Touch
           </p>
@@ -176,15 +170,10 @@ export default function ContactSection() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Right side — Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-        >
+        <div>
           <div className="glass-card p-8 md:p-10 !rounded-2xl">
             {status === "success" ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
@@ -232,7 +221,7 @@ export default function ContactSection() {
               </form>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

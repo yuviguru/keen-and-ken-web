@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 
 const techStack = [
   { name: "OpenAI", icon: (
@@ -18,9 +17,7 @@ const techStack = [
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
     </svg>
   )},
-  { name: "HuggingFace", icon: (
-    <span className="text-base">🤗</span>
-  )},
+  { name: "HuggingFace", icon: (<span className="text-base">🤗</span>) },
   { name: "Figma", icon: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
       <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 8.962h-4.588c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM4.127 12c0 1.665 1.354 3.019 3.019 3.019h3.117V8.981H7.146c-1.665 0-3.019 1.354-3.019 3.019zm4.59 9.019c-2.477 0-4.49-2.014-4.49-4.49s2.013-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.588 4.539zm-.001-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02c1.665 0 3.019-1.355 3.019-3.02v-3.019H8.716zm7.136-1.51c2.476 0 4.49-2.015 4.49-4.491s-2.014-4.49-4.49-4.49c-2.476 0-4.49 2.014-4.49 4.49v4.491h4.49zm0-7.51c1.665 0 3.019 1.354 3.019 3.019S17.517 8.51 15.852 8.51h-3.019V5.49h3.019z" />
@@ -81,24 +78,14 @@ export default function TrustBar() {
 
   return (
     <section className="relative py-12 md:py-16 border-t border-b border-white/[0.06] overflow-hidden">
-      <motion.p
-        className="text-center section-label text-white/30 mb-8"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <p className="text-center section-label text-white/30 mb-8">
         Powered by leading technologies
-      </motion.p>
+      </p>
 
-      {/* Marquee container */}
       <div className="relative">
-        {/* Left fade */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none bg-gradient-to-r from-[var(--bg-deep)] to-transparent" />
-        {/* Right fade */}
         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-[var(--bg-deep)] to-transparent" />
 
-        {/* Scrolling track */}
         <div className="flex animate-marquee w-max gap-12 md:gap-16 items-center">
           {items.map((tech, i) => (
             <div

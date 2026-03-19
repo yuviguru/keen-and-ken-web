@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import {
   ReactFlow,
   Handle,
@@ -215,34 +214,16 @@ export default function ProductsOrbit() {
 
       {/* Header */}
       <div className="text-center mb-8">
-        <motion.p
-          className="section-label mb-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Our Expertise
-        </motion.p>
-        <motion.h2
-          className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <p className="section-label mb-4">Our Expertise</p>
+        <h2 className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]">
           Solutions We Design & Build
-        </motion.h2>
+        </h2>
       </div>
 
       {/* Desktop: React Flow */}
-      <motion.div
+      <div
         className="hidden md:block expertise-flow"
         style={{ height: 620 }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2 }}
       >
         <ReactFlow
           nodes={initialNodes}
@@ -265,18 +246,12 @@ export default function ProductsOrbit() {
           preventScrolling={false}
           style={{ background: "transparent" }}
         />
-      </motion.div>
+      </div>
 
       {/* Mobile: categorized grid */}
       <div className="md:hidden space-y-8 max-w-sm mx-auto">
-        {categories.map((cat, ci) => (
-          <motion.div
-            key={cat.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: ci * 0.1, duration: 0.5 }}
-          >
+        {categories.map((cat) => (
+          <div key={cat.name}>
             <div className="flex items-center gap-2 mb-3">
               <div
                 className="w-2 h-2 rounded-full"
@@ -304,7 +279,7 @@ export default function ProductsOrbit() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

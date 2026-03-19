@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import {
   Compass,
   Palette,
@@ -26,15 +25,6 @@ const cards = [
   { title: "Support & Maintenance", description: "Post-launch monitoring, updates, bug fixes, and scaling support — we don't disappear after delivery day.", icon: Wrench },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
-};
-
 export default function WhatWeDo() {
   return (
     <section
@@ -42,94 +32,31 @@ export default function WhatWeDo() {
       className="relative px-6 md:px-12 lg:px-16 py-24 md:py-32 scroll-mt-20"
     >
       <div className="text-center w-full max-w-[1400px] mx-auto">
-        <motion.p
-          className="section-label mb-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Our Services
-        </motion.p>
+        <p className="section-label mb-4">Our Services</p>
 
-        <motion.h2
-          className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <h2 className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]">
           End-to-End, From Idea to Launch & Beyond
-        </motion.h2>
+        </h2>
 
-        <motion.p
-          className="mt-5 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/45 mb-16 max-w-2xl mx-auto leading-[var(--lh-body)] tracking-[var(--ls-body)]"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
+        <p className="mt-5 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/45 mb-16 max-w-2xl mx-auto leading-[var(--lh-body)] tracking-[var(--ls-body)]">
           We own the entire lifecycle — discovery, design, development, deployment, and ongoing support. One team, no handoffs, no gaps.
-        </motion.p>
+        </p>
 
         <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto rounded-2xl overflow-hidden">
           {/* Gradient grid lines overlay */}
           <div className="absolute inset-0 pointer-events-none z-10">
-            {/* Vertical lines */}
-            <div
-              className="hidden lg:block absolute top-0 bottom-0"
-              style={{
-                left: "33.333%",
-                width: 2,
-                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)",
-              }}
-            />
-            <div
-              className="hidden lg:block absolute top-0 bottom-0"
-              style={{
-                left: "66.666%",
-                width: 2,
-                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)",
-              }}
-            />
-            {/* Horizontal lines */}
-            <div
-              className="hidden lg:block absolute left-0 right-0"
-              style={{
-                top: "33.333%",
-                height: 2,
-                background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
-              }}
-            />
-            <div
-              className="hidden lg:block absolute left-0 right-0"
-              style={{
-                top: "66.666%",
-                height: 2,
-                background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
-              }}
-            />
-            {/* Mobile/tablet: single vertical line for 2-col */}
-            <div
-              className="hidden sm:block lg:hidden absolute top-0 bottom-0"
-              style={{
-                left: "50%",
-                width: 2,
-                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent 100%)",
-              }}
-            />
+            <div className="hidden lg:block absolute top-0 bottom-0" style={{ left: "33.333%", width: 2, background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)" }} />
+            <div className="hidden lg:block absolute top-0 bottom-0" style={{ left: "66.666%", width: 2, background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)" }} />
+            <div className="hidden lg:block absolute left-0 right-0" style={{ top: "33.333%", height: 2, background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)" }} />
+            <div className="hidden lg:block absolute left-0 right-0" style={{ top: "66.666%", height: 2, background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)" }} />
+            <div className="hidden sm:block lg:hidden absolute top-0 bottom-0" style={{ left: "50%", width: 2, background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent 100%)" }} />
           </div>
 
           {cards.map((card, index) => {
             const Icon = card.icon;
             return (
-              <motion.div
+              <div
                 key={index}
-                custom={index}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
                 className="group flex flex-col items-center justify-center p-8
                   hover:bg-white/[0.03] transition-colors duration-300 cursor-default"
               >
@@ -143,18 +70,12 @@ export default function WhatWeDo() {
                 <p className="text-white/40 text-[0.875rem] mt-2 leading-[var(--lh-body)] tracking-[var(--ls-body)] text-center max-w-[220px]">
                   {card.description}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        <motion.div
-          className="mt-14"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <div className="mt-14">
           <GradientButton
             size="md"
             variant="outline"
@@ -162,7 +83,7 @@ export default function WhatWeDo() {
           >
             Discuss Your Project With Us
           </GradientButton>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
