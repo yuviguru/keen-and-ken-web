@@ -1,6 +1,7 @@
 // app/page.tsx (Server Component)
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
+import TrustBar from "./components/TrustBar";
 import WhatWeDo from "./components/WhatWeDo";
 import AIShowcase from "./components/AIShowcase";
 import ProductsOrbit from "./components/ProductsOrbit";
@@ -17,7 +18,9 @@ export default function Page() {
     <main>
       <Navbar />
       <HeroSection />
+      <SectionDivider />
       <WhatWeDo />
+      <TrustBar />
       <SectionDivider />
       <AIShowcase />
       <SectionDivider />

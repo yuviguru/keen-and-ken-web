@@ -34,12 +34,13 @@ export default function FloatingMobileCTA() {
         show ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
       }`}
       style={{
-        background: "linear-gradient(to top, rgba(10,10,10,0.95), rgba(10,10,10,0.8))",
+        background: "linear-gradient(to top, rgba(5,5,5,0.95), rgba(5,5,5,0.8))",
         backdropFilter: "blur(12px)",
       }}
     >
       <GradientButton
         size="md"
+        variant="filled"
         className="w-full"
         onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
       >

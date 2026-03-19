@@ -1,137 +1,306 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import ScrollReveal from "./ScrollReveal";
+import {
+  ReactFlow,
+  Handle,
+  type Node,
+  type Edge,
+  Position,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 
-const products = [
-  { name: "HRMS", orbit: 1, startAngle: 45 },
-  { name: "LMS", orbit: 2, startAngle: 200 },
-  { name: "AI Agents", orbit: 3, startAngle: 320 },
-  { name: "Micro SaaS", orbit: 1, startAngle: 225 },
-  { name: "CRM", orbit: 2, startAngle: 80 },
-  { name: "CMS", orbit: 3, startAngle: 160 },
-  { name: "Analytics", orbit: 4, startAngle: 270 },
-  { name: "EdTech", orbit: 4, startAngle: 90 },
+// ─── Data ────────────────────────────────────────────────────
+interface Category {
+  name: string;
+  items: string[];
+}
+
+const categories: Category[] = [
+  { name: "Enterprise Platforms", items: ["HRMS", "CRM", "ERP", "LMS"] },
+  { name: "AI & Automation", items: ["AI Agents", "Chatbots", "Analytics", "Workflow Automation"] },
+  { name: "Digital Products", items: ["EdTech", "E-Commerce", "Micro SaaS", "CMS"] },
 ];
 
-const orbitConfig = [
-  { radius: 120, duration: 25 },
-  { radius: 200, duration: 35 },
-  { radius: 280, duration: 45 },
-  { radius: 360, duration: 55 },
+// ─── Custom Hub Node (3 source handles: left, top, right) ────
+function HubNode() {
+  return (
+    <div
+      style={{
+        width: 72,
+        height: 72,
+        borderRadius: "50%",
+        background: "linear-gradient(135deg, rgba(97,54,217,0.5), rgba(30,20,60,0.9))",
+        border: "2px solid rgba(139,92,246,0.4)",
+        boxShadow: "0 0 50px rgba(97,54,217,0.3), 0 0 100px rgba(97,54,217,0.1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        zIndex: 10,
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/logo.svg" alt="Keen & Ken" style={{ width: 36, height: 36 }} />
+      <Handle type="source" position={Position.Left} id="left" />
+      <Handle type="source" position={Position.Top} id="top" />
+      <Handle type="source" position={Position.Right} id="right" />
+    </div>
+  );
+}
+
+const nodeTypes = { hub: HubNode };
+
+// ─── Shared styles ───────────────────────────────────────────
+const catStyle: React.CSSProperties = {
+  background: "rgba(97,54,217,0.15)",
+  border: "1px solid rgba(139,92,246,0.3)",
+  borderRadius: 20,
+  color: "#a78bfa",
+  fontWeight: 600,
+  fontSize: 12,
+  padding: "6px 16px",
+};
+
+const itemStyle: React.CSSProperties = {
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 10,
+  color: "#f0eef6",
+  fontWeight: 500,
+  fontSize: 13,
+  padding: "8px 20px",
+};
+
+// ─── Fixed positions (symmetric around x:500, y:280) ─────────
+const HUB = { x: 500, y: 280 };
+
+const catPos = [
+  { x: 260, y: 280 },  // Enterprise - left
+  { x: 500, y: 110 },  // AI & Automation - top
+  { x: 740, y: 280 },  // Digital Products - right
 ];
 
+const leftItems = [
+  { x: 0, y: 100 },
+  { x: 0, y: 210 },
+  { x: 0, y: 350 },
+  { x: 0, y: 460 },
+];
+
+const topItems = [
+  { x: 180, y: -80 },
+  { x: 380, y: -80 },
+  { x: 620, y: -80 },
+  { x: 820, y: -80 },
+];
+
+const rightItems = [
+  { x: 1000, y: 100 },
+  { x: 1000, y: 210 },
+  { x: 1000, y: 350 },
+  { x: 1000, y: 460 },
+];
+
+const itemPositions = [leftItems, topItems, rightItems];
+
+// ─── Build nodes ─────────────────────────────────────────────
+function buildNodes(): Node[] {
+  const nodes: Node[] = [
+    {
+      id: "hub",
+      type: "hub",
+      position: HUB,
+      data: { label: "K & K" },
+    },
+  ];
+
+  // Category source/target handles for connecting to their sub-items
+  const catSourcePos = [Position.Left, Position.Top, Position.Right];
+  const catTargetPos = [Position.Right, Position.Bottom, Position.Left];
+
+  categories.forEach((cat, ci) => {
+    nodes.push({
+      id: cat.name,
+      position: catPos[ci],
+      data: { label: cat.name },
+      style: catStyle,
+      sourcePosition: catSourcePos[ci],
+      targetPosition: catTargetPos[ci],
+    });
+
+    const positions = itemPositions[ci];
+    // Items connect back toward their category
+    const itemTarget = ci === 0 ? Position.Right : ci === 2 ? Position.Left : Position.Bottom;
+
+    cat.items.forEach((item, si) => {
+      nodes.push({
+        id: item,
+        position: positions[si],
+        data: { label: item },
+        style: itemStyle,
+        sourcePosition: Position.Left,
+        targetPosition: itemTarget,
+      });
+    });
+  });
+
+  return nodes;
+}
+
+// ─── Build edges ─────────────────────────────────────────────
+// Hub edges use sourceHandle to route from the correct side
+const hubHandles = ["left", "top", "right"];
+
+function buildEdges(): Edge[] {
+  const edges: Edge[] = [];
+
+  categories.forEach((cat, ci) => {
+    edges.push({
+      id: `hub-${cat.name}`,
+      source: "hub",
+      sourceHandle: hubHandles[ci],
+      target: cat.name,
+      type: "bezier",
+      style: { stroke: "rgba(139,92,246,0.45)", strokeWidth: 1.8 },
+      animated: true,
+    });
+
+    cat.items.forEach((item) => {
+      edges.push({
+        id: `${cat.name}-${item}`,
+        source: cat.name,
+        target: item,
+        type: "bezier",
+        style: { stroke: "rgba(139,92,246,0.2)", strokeWidth: 1.2 },
+      });
+    });
+  });
+
+  return edges;
+}
+
+const initialNodes = buildNodes();
+const initialEdges = buildEdges();
+
+// ─── CSS to hide handles and polish ──────────────────────────
+const flowCSS = `
+  .expertise-flow .react-flow__handle {
+    opacity: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  .expertise-flow .react-flow__node {
+    cursor: default !important;
+  }
+  .expertise-flow .react-flow__edge-interaction {
+    pointer-events: none !important;
+  }
+`;
+
+// ─── Component ───────────────────────────────────────────────
 export default function ProductsOrbit() {
   return (
-    <section id="products" className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-[90px] py-20 overflow-hidden scroll-mt-20">
-      <ScrollReveal className="text-center mb-12 md:mb-0" direction="blur">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--accent-lavender)]">
-          Products We Build & Power
-        </h2>
-        <div className="accent-line w-20 mx-auto mt-4 rounded-full" />
-      </ScrollReveal>
+    <section
+      id="products"
+      className="relative px-6 md:px-12 lg:px-16 py-24 md:py-32 overflow-hidden scroll-mt-20"
+    >
+      <style dangerouslySetInnerHTML={{ __html: flowCSS }} />
 
-      {/* Desktop orbit view */}
-      <div className="hidden md:flex items-center justify-center relative w-full max-w-[800px] aspect-square">
-        {/* Concentric orbit rings with alternating styles */}
-        {orbitConfig.map((orbit, i) => (
-          <React.Fragment key={i}>
-            {/* Main ring */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: orbit.radius * 2,
-                height: orbit.radius * 2,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                border: i % 2 === 0
-                  ? "1px solid rgba(255,255,255,0.1)"
-                  : "1px dashed rgba(147,123,216,0.12)",
-              }}
-            />
-            {/* Depth ring (offset) */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: orbit.radius * 2 + 8,
-                height: orbit.radius * 2 + 8,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                border: "1px solid rgba(255,255,255,0.03)",
-              }}
-            />
-          </React.Fragment>
-        ))}
-
-        {/* Center logo with pulse-glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-          <div
-            className="w-16 h-16 rounded-full bg-[var(--bg-deep)] border border-white/10 flex items-center justify-center"
-            style={{
-              animation: "pulse-glow 3s ease-in-out infinite",
-            }}
-          >
-            <img src="/logo.svg" alt="K&K" className="w-8 h-8" />
-          </div>
-        </div>
-
-        {/* Orbiting product pills */}
-        {products.map((product, i) => {
-          const orbit = orbitConfig[product.orbit - 1];
-          const duration = orbit.duration;
-
-          return (
-            <div
-              key={product.name}
-              className="absolute top-1/2 left-1/2"
-              style={{
-                width: 0,
-                height: 0,
-                animation: `orbit-${product.orbit} ${duration}s linear infinite`,
-                animationDelay: `${-(product.startAngle / 360) * duration}s`,
-              }}
-            >
-              <motion.div
-                className="absolute -translate-x-1/2 -translate-y-1/2 px-4 py-2 rounded-full
-                  text-xs font-semibold whitespace-nowrap"
-                style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.82))",
-                  color: "#111",
-                  boxShadow: "0 0 20px rgba(197,10,189,0.12), 0 2px 8px rgba(0,0,0,0.3)",
-                  backdropFilter: "blur(4px)",
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                {product.name}
-              </motion.div>
-            </div>
-          );
-        })}
+      {/* Header */}
+      <div className="text-center mb-8">
+        <motion.p
+          className="section-label mb-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Our Expertise
+        </motion.p>
+        <motion.h2
+          className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Solutions We Design & Build
+        </motion.h2>
       </div>
 
-      {/* Mobile grid fallback */}
-      <div className="grid grid-cols-2 gap-3 md:hidden mt-8 w-full max-w-sm mx-auto">
-        {products.map((product, i) => (
+      {/* Desktop: React Flow */}
+      <motion.div
+        className="hidden md:block expertise-flow"
+        style={{ height: 620 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <ReactFlow
+          nodes={initialNodes}
+          edges={initialEdges}
+          nodeTypes={nodeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.05 }}
+          proOptions={{ hideAttribution: true }}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          nodesFocusable={false}
+          edgesFocusable={false}
+          elementsSelectable={false}
+          panOnDrag={false}
+          panOnScroll={false}
+          zoomOnScroll={false}
+          zoomOnPinch={false}
+          zoomOnDoubleClick={false}
+          preventScrolling={false}
+          style={{ background: "transparent" }}
+        />
+      </motion.div>
+
+      {/* Mobile: categorized grid */}
+      <div className="md:hidden space-y-8 max-w-sm mx-auto">
+        {categories.map((cat, ci) => (
           <motion.div
-            key={product.name}
-            className="flex items-center justify-center px-4 py-3 rounded-full text-sm font-semibold"
-            style={{
-              background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8))",
-              color: "#111",
-              boxShadow: "0 0 15px rgba(197,10,189,0.1), 0 2px 8px rgba(0,0,0,0.2)",
-              border: "1px solid rgba(197,10,189,0.15)",
-            }}
+            key={cat.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ delay: ci * 0.1, duration: 0.5 }}
           >
-            {product.name}
+            <div className="flex items-center gap-2 mb-3">
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{
+                  background: "var(--accent-primary)",
+                  boxShadow: "0 0 8px rgba(139,92,246,0.4)",
+                }}
+              />
+              <span
+                className="text-[0.8125rem] font-semibold tracking-[0.02em]"
+                style={{ color: "var(--accent-primary)" }}
+              >
+                {cat.name}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {cat.items.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center justify-center px-4 py-3 rounded-lg border border-white/[0.08] bg-white/[0.03]"
+                >
+                  <span className="text-sm font-medium text-white">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         ))}
       </div>

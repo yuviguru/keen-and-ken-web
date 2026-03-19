@@ -2,83 +2,136 @@
 
 :root {
   /* Brand Palette */
-  --accent-magenta: #C50ABD;
-  --accent-purple: #7A3EDB;
-  --accent-lavender: #937bd8;
-  --bg-deep: #0a0a0a;
-  --bg-surface: #111;
+  --accent-magenta: #7C5AED;
+  --accent-purple: #6136D9;
+  --accent-lavender: #A78BFA;
+  --bg-deep: #050505;
+  --bg-surface: #0a0a0a;
   --text-primary: #f0eef6;
-  --text-secondary: rgba(239, 237, 253, 0.6);
-  --text-muted: rgba(239, 237, 253, 0.35);
+  --text-secondary: rgba(239, 237, 253, 0.55);
+  --text-muted: rgba(239, 237, 253, 0.32);
 
-  /* Glassmorphism */
+  /* Glass */
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-bg-hover: rgba(255, 255, 255, 0.06);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
 
-  /* Shadows & Glows */
-  --glow-sm: 0 0 15px rgba(197, 10, 189, 0.15);
-  --glow-md: 0 0 30px rgba(197, 10, 189, 0.25);
-  --glow-lg: 0 0 60px rgba(197, 10, 189, 0.3);
+  /* Shadows */
+  --glow-sm: 0 0 15px rgba(124, 90, 237, 0.2);
+  --glow-md: 0 0 30px rgba(124, 90, 237, 0.3);
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 10, 189, 0.1);
 
-  --background: #0a0a0a;
+  --background: #050505;
   --foreground: #ededed;
+
+  /* ── TYPOGRAPHY SCALE (Major Third 1.25) ── */
+  /* Optical sizes tuned for dark backgrounds   */
+  --text-caption: 0.75rem;     /* 12px — labels, badges      */
+  --text-small: 0.8125rem;     /* 13px — helper text          */
+  --text-body: 0.9375rem;      /* 15px — body (slightly < 16) */
+  --text-body-lg: 1.0625rem;   /* 17px — lead paragraphs      */
+  --text-subhead: 1.25rem;     /* 20px — card titles          */
+  --text-h4: 1.5rem;           /* 24px                        */
+  --text-h3: 1.875rem;         /* 30px                        */
+  --text-h2: 2.25rem;          /* 36px                        */
+  --text-h1: 3rem;             /* 48px                        */
+  --text-display: 3.5rem;      /* 56px — hero only            */
+
+  /* ── LINE HEIGHTS ───────────────────────── */
+  /* Headings tight → body open for scanning   */
+  --lh-tight: 1.1;             /* display / h1                */
+  --lh-heading: 1.2;           /* h2, h3                      */
+  --lh-subhead: 1.35;          /* h4, card titles             */
+  --lh-body: 1.7;              /* body text — optimal scan    */
+  --lh-relaxed: 1.8;           /* lead / long-form            */
+
+  /* ── LETTER SPACING ─────────────────────── */
+  --ls-tight: -0.025em;        /* large headings              */
+  --ls-heading: -0.015em;      /* h2–h3                       */
+  --ls-body: 0.005em;          /* body — micro open for dark  */
+  --ls-wide: 0.12em;           /* uppercase labels            */
+
+  /* ── SPACING (8px base grid) ────────────── */
+  --space-section: clamp(5rem, 8vw, 8rem);      /* between sections   */
+  --space-block: clamp(2.5rem, 4vw, 4rem);      /* heading → content  */
+  --space-element: clamp(1rem, 2vw, 1.5rem);    /* between elements   */
+  --space-tight: 0.5rem;                         /* inline / compact   */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-mono);
 }
 
-/* ── TYPOGRAPHY ──────────────────────── */
+/* ── BASE ──────────────────────────── */
 
 body {
   background: var(--bg-deep);
   color: var(--foreground);
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-display), system-ui, sans-serif;
-  letter-spacing: -0.02em;
+html {
+  overscroll-behavior: none;
 }
 
-/* ── NOISE TEXTURE OVERLAY ───────────── */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
 
-.noise-overlay {
-  position: relative;
+  h1 {
+    font-size: var(--text-h1);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading);
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading);
+  }
+
+  h4 {
+    font-size: var(--text-h4);
+    line-height: var(--lh-subhead);
+    letter-spacing: var(--ls-heading);
+  }
+
+  p {
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+  }
 }
 
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px 128px;
-  opacity: 0.4;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
+/* Utility: section label (uppercase eyebrow text) */
+.section-label {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-small);
+  text-transform: none;
+  letter-spacing: var(--ls-wide);
+  line-height: 1;
+  color: var(--accent-lavender);
 }
 
-/* ── GRADIENT TEXT ────────────────────── */
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── GLASS CARD ──────────────────────── */
+/* ── GLASS CARD ────────────────────── */
 
 .glass-card {
   background: var(--glass-bg);
@@ -87,74 +140,80 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-card);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: border-color 0.4s ease, background 0.4s ease;
 }
 
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
 }
 
-/* ── SECTION DIVIDER ─────────────────── */
+/* ── GRADIENT TEXT ──────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── SECTION DIVIDER ───────────────── */
 
 .section-divider {
   height: 1px;
   background: linear-gradient(
     to right,
     transparent,
-    rgba(147, 123, 216, 0.2),
-    rgba(197, 10, 189, 0.15),
-    rgba(147, 123, 216, 0.2),
+    rgba(147, 123, 216, 0.15),
+    rgba(97, 54, 217, 0.1),
+    rgba(147, 123, 216, 0.15),
     transparent
   );
   margin: 0 auto;
   max-width: 80%;
 }
 
-/* ── ACCENT LINE ─────────────────────── */
+/* ── AURORA GRADIENT ───────────────── */
 
-.accent-line {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-magenta), var(--accent-purple), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
+/* Aurora blobs use inline styles in HeroSection.tsx — keyframes below */
+
+@keyframes aurora-1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  50% { transform: translate(5%, 8%) scale(1.1); opacity: 0.7; }
+  100% { transform: translate(-3%, 5%) scale(1.05); opacity: 0.5; }
 }
 
-/* ── KEYFRAME ANIMATIONS ─────────────── */
-
-@keyframes lightSweep {
-  0% { transform: translateX(-100%); opacity: 0; }
-  20% { opacity: 0.3; }
-  50% { transform: translateX(100%); opacity: 0.1; }
-  100% { transform: translateX(200%); opacity: 0; }
+@keyframes aurora-2 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  50% { transform: translate(-5%, 5%) scale(1.08); opacity: 0.6; }
+  100% { transform: translate(3%, -3%) scale(1); opacity: 0.4; }
 }
-.animate-lightSweep { animation: lightSweep 5s infinite linear; }
+
+@keyframes aurora-3 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  100% { transform: translate(5%, -5%) scale(1.1); opacity: 0.5; }
+}
+
+/* ── KEYFRAMES ─────────────────────── */
 
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(97, 54, 217, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(97, 54, 217, 0); }
 }
 
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(147, 123, 216, 0.3), 0 0 40px rgba(147, 123, 216, 0.1); }
-  50% { box-shadow: 0 0 40px rgba(197, 10, 189, 0.5), 0 0 80px rgba(147, 123, 216, 0.2); }
-}
-
-@keyframes border-glow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes gradient-shift {
@@ -163,30 +222,24 @@ h1, h2, h3, h4 {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Product orbit animations */
-@keyframes orbit-1 {
-  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
-}
-@keyframes orbit-2 {
-  from { transform: rotate(0deg) translateX(200px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
-}
-@keyframes orbit-3 {
-  from { transform: rotate(0deg) translateX(280px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(280px) rotate(-360deg); }
-}
-@keyframes orbit-4 {
-  from { transform: rotate(0deg) translateX(360px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(360px) rotate(-360deg); }
+.animate-marquee {
+  animation: marquee 35s linear infinite;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── ACCENT LINE ───────────────────── */
+
+.accent-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-magenta), var(--accent-purple), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
 }

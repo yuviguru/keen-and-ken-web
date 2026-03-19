@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import { Syne, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Manrope, DM_Sans, Fira_Code } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const syne = Syne({
+const manrope = Manrope({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const firaCode = Fira_Code({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -91,7 +92,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${syne.variable} ${jakarta.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${dmSans.variable} ${firaCode.variable} antialiased`}
       >
         {children}
         {process.env.NEXT_PUBLIC_GA_ID && (

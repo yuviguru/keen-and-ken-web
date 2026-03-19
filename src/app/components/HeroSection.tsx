@@ -1,99 +1,141 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
-import GradientButton from "./GradientButton";
 import { motion } from "framer-motion";
-
-const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#1a0a2e] to-[#0a0a0a]" />
-  ),
-});
+import GradientButton from "./GradientButton";
 
 const stagger = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-  },
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.4 } },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[450px] h-screen flex items-center justify-center text-white overflow-hidden noise-overlay">
-      <HeroCanvas />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Aurora background — real divs, not pseudo-elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div
+          className="absolute rounded-full"
+          style={{
+            top: "-30%",
+            left: "5%",
+            width: "70vw",
+            height: "70vh",
+            background: "rgba(124, 90, 237, 0.35)",
+            filter: "blur(100px)",
+            animation: "aurora-1 10s ease-in-out infinite alternate",
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            top: "-15%",
+            right: "-5%",
+            width: "55vw",
+            height: "55vh",
+            background: "rgba(97, 54, 217, 0.30)",
+            filter: "blur(90px)",
+            animation: "aurora-2 12s ease-in-out infinite alternate",
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            top: "5%",
+            left: "25%",
+            width: "45vw",
+            height: "40vh",
+            background: "rgba(147, 123, 216, 0.18)",
+            filter: "blur(80px)",
+            animation: "aurora-3 14s ease-in-out infinite alternate",
+          }}
+        />
+      </div>
 
-      {/* Foreground content */}
+      {/* Subtle grid overlay */}
+      <div
+        className="absolute inset-0 z-[1] opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      {/* Content */}
       <motion.div
-        className="absolute bottom-0 left-0 z-10 p-6 md:pl-[90px] max-w-full lg:max-w-[50%] md:max-w-[65%] flex flex-col justify-between pb-12 md:pb-16 pt-20"
+        className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 text-center"
         variants={stagger}
         initial="hidden"
         animate="visible"
       >
-        <div>
-          <motion.h1
-            variants={fadeUp}
-            className="text-[32px] sm:text-[36px] md:text-[42px] lg:text-[48px] xl:text-[56px] font-extrabold leading-[1.1] tracking-[-0.02em] text-white"
-            style={{ textShadow: "0 0 40px rgba(147, 123, 216, 0.15)" }}
+        {/* Social proof badge */}
+        <motion.div variants={fadeUp} className="mb-8 flex justify-center">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04]">
+            <div className="flex -space-x-2">
+              {[
+                "bg-gradient-to-br from-purple-400 to-pink-500",
+                "bg-gradient-to-br from-blue-400 to-purple-500",
+                "bg-gradient-to-br from-pink-400 to-red-500",
+              ].map((bg, i) => (
+                <div
+                  key={i}
+                  className={`w-6 h-6 rounded-full border-2 border-[var(--bg-deep)] ${bg}`}
+                />
+              ))}
+            </div>
+            <span className="text-[var(--text-small)] text-white/60 tracking-[var(--ls-body)]">
+              Trusted by growing businesses
+            </span>
+          </div>
+        </motion.div>
+
+        <motion.h1
+          variants={fadeUp}
+          className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.5rem] font-extrabold leading-[1.2] tracking-[var(--ls-tight)] text-white max-w-5xl mx-auto"
+        >
+          We Build AI Systems
+          <br />
+          That Run Your Business
+        </motion.h1>
+
+        <motion.p
+          variants={fadeUp}
+          className="mt-6 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/50 max-w-2xl mx-auto leading-[var(--lh-relaxed)] tracking-[var(--ls-body)]"
+        >
+          Custom AI agents, workflow automation, and full-stack products —
+          so you can scale without scaling headcount.
+        </motion.p>
+
+        <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <GradientButton
+            size="lg"
+            variant="primary"
+            onClick={() =>
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+            }
           >
-            We Build AI Systems That Run Your Business
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="mt-4 text-md md:text-lg xl:text-xl text-gray-200 tracking-wide leading-relaxed max-w-xl">
-            We help growing businesses automate operations, build custom AI agents, and launch AI-powered products — so you can scale without scaling headcount.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
-            <GradientButton
-              size="lg"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Book a Free AI Consultation
-            </GradientButton>
-            <button
-              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-              className="text-sm text-[var(--accent-lavender)] hover:text-white transition-colors duration-300 underline underline-offset-4"
-            >
-              See what we build &rarr;
-            </button>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-10 accent-line w-32 rounded-full" />
-        </div>
+            Get Started
+          </GradientButton>
+          <GradientButton
+            size="lg"
+            variant="outline"
+            onClick={() =>
+              document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            See Our Services
+          </GradientButton>
+        </motion.div>
       </motion.div>
-
-      {/* Right-Side Robot Image */}
-      <div className="hidden sm:block absolute bottom-0 right-0 w-[40vw] h-[100vh] max-w-[750px] max-h-[750px] min-w-[400px] min-h-[300px] overflow-visible">
-        <motion.img
-          src="/female-humanoid.png"
-          alt="AI-Powered Robots"
-          initial={{ x: "100%", opacity: 0, scale: 1.2 }}
-          animate={{ x: 0, opacity: 1, scale: 1 }}
-          transition={{
-            duration: 2,
-            ease: [0.16, 1, 0.3, 1],
-            opacity: { duration: 1.2 },
-            scale: { duration: 2.2 },
-          }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            objectPosition: "bottom",
-            willChange: "transform",
-          }}
-        />
-      </div>
     </section>
   );
 }
