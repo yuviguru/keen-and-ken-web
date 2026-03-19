@@ -23,59 +23,189 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://keenken.com"),
-  title: "Keen & Ken | AI Automation & Custom AI Agents for Business",
+  title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
   description:
-    "We build AI systems that run your business. Custom AI agents, workflow automation, EdTech platforms, and AI-powered products. Book a free consultation.",
+    "AI automation services and AI-integrated development for businesses. We build custom AI agents, workflow automation systems, HRMS, CRM, EdTech platforms, and intelligent software. Book a free consultation.",
   keywords: [
-    "AI consultancy",
-    "AI automation",
+    "AI automation services",
+    "AI integrated development",
     "custom AI agents",
+    "AI consultancy",
+    "AI automation company",
+    "workflow automation AI",
+    "AI software development",
     "AI for business",
-    "EdTech AI",
-    "workflow automation",
+    "AI-powered products",
+    "EdTech AI solutions",
+    "enterprise AI platforms",
+    "AI chatbot development",
+    "HRMS software",
+    "CRM development",
+    "micro SaaS development",
     "Keen and Ken",
   ],
   openGraph: {
-    title: "Keen & Ken | AI Automation & Custom AI Agents for Business",
+    title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
     description:
-      "We build AI systems that run your business. Custom AI agents, workflow automation, and AI-powered products.",
+      "We build AI systems that run your business. Custom AI agents, workflow automation, enterprise platforms, and AI-powered digital products.",
     url: "https://keenken.com",
     siteName: "Keen & Ken",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Keen & Ken - AI Automation & Development Services",
+      },
+    ],
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Keen & Ken | AI Automation & Custom AI Agents for Business",
+    title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
     description:
-      "We build AI systems that run your business. Book a free AI consultation.",
+      "Custom AI agents, workflow automation, and intelligent software development. Book a free AI consultation.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   alternates: {
     canonical: "https://keenken.com",
   },
+  manifest: "/site.webmanifest",
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Keen & Ken",
-  url: "https://keenken.com",
-  logo: "https://keenken.com/logo.svg",
-  description:
-    "AI consultancy specializing in custom AI agents, workflow automation, EdTech solutions, and AI-powered product development.",
-  email: "info@keenken.com",
-  serviceType: [
-    "AI Automation",
-    "Custom AI Agent Development",
-    "EdTech Solutions",
-    "AI Product Development",
-    "Research & Development",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://keenken.com/#organization",
+      name: "Keen & Ken",
+      url: "https://keenken.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://keenken.com/logo.svg",
+      },
+      description:
+        "AI automation services and AI-integrated development company. We build custom AI agents, workflow automation systems, and intelligent software for businesses worldwide.",
+      email: "info@keenken.com",
+      sameAs: [],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://keenken.com/#service",
+      name: "Keen & Ken - AI Automation & Development Services",
+      provider: { "@id": "https://keenken.com/#organization" },
+      serviceType: [
+        "AI Automation Services",
+        "AI-Integrated Software Development",
+        "Custom AI Agent Development",
+        "Workflow Automation",
+        "Enterprise Platform Development",
+        "EdTech Solutions",
+        "AI Chatbot Development",
+        "Data Analytics & AI",
+      ],
+      areaServed: "Worldwide",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "AI & Software Development Services",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom AI Agents",
+              description:
+                "Purpose-built AI agents that automate complex business processes and decision-making.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Workflow Automation",
+              description:
+                "End-to-end automation of business workflows using AI and intelligent orchestration.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Enterprise Platforms",
+              description:
+                "Custom HRMS, CRM, ERP, and LMS platforms powered by AI for smarter business operations.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Digital Products",
+              description:
+                "EdTech platforms, e-commerce solutions, micro SaaS, and CMS development with AI integration.",
+            },
+          },
+        ],
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://keenken.com/#website",
+      url: "https://keenken.com",
+      name: "Keen & Ken",
+      publisher: { "@id": "https://keenken.com/#organization" },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What AI automation services does Keen & Ken offer?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Keen & Ken offers custom AI agent development, workflow automation, AI-integrated software development, enterprise platforms (HRMS, CRM, ERP, LMS), and digital products including EdTech, e-commerce, and micro SaaS solutions.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How does AI-integrated development work?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Our AI-integrated development process uses AI at every step — from discovery and research, through design and prototyping, to development, deployment, and continuous optimization. AI pair-programs with our engineers, accelerating delivery while maintaining production-grade quality.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What industries does Keen & Ken serve?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We serve businesses across all industries including education (EdTech), retail (e-commerce), healthcare, finance, HR, and more. Our solutions are tailored to each industry's specific automation and AI needs.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How can I get started with Keen & Ken?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Book a free consultation through our website. We'll analyze your business needs, identify high-ROI automation opportunities, and propose a tailored AI solution — typically delivering an initial prototype within weeks.",
+          },
+        },
+      ],
+    },
   ],
-  areaServed: "Worldwide",
 };
 
 export default function RootLayout({

@@ -1,0 +1,16 @@
+{
+  "name": "Keen & Ken - AI Automation & Development",
+  "short_name": "Keen & Ken",
+  "description": "AI-integrated development and automation services. Custom AI agents, workflow automation, and intelligent software solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#6136D9",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
