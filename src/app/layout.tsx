@@ -83,6 +83,13 @@ export const metadata: Metadata = {
     canonical: "https://keenken.com",
   },
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    apple: [{ url: "/logo.svg" }],
+  },
 };
 
 const jsonLd = {
