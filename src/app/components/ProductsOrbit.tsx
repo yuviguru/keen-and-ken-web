@@ -27,8 +27,8 @@ function HubNode() {
   return (
     <div
       style={{
-        width: 72,
-        height: 72,
+        width: 88,
+        height: 88,
         borderRadius: "50%",
         background: "linear-gradient(135deg, rgba(97,54,217,0.5), rgba(30,20,60,0.9))",
         border: "2px solid rgba(139,92,246,0.4)",
@@ -41,7 +41,7 @@ function HubNode() {
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/logo.svg" alt="Keen & Ken" style={{ width: 36, height: 36 }} />
+      <img src="/logo.svg" alt="Keen & Ken" style={{ width: 44, height: 44 }} />
       <Handle type="source" position={Position.Left} id="left" />
       <Handle type="source" position={Position.Top} id="top" />
       <Handle type="source" position={Position.Right} id="right" />
@@ -73,7 +73,7 @@ const itemStyle: React.CSSProperties = {
 };
 
 // ─── Fixed positions (symmetric around x:500, y:280) ─────────
-const HUB = { x: 500, y: 280 };
+const HUB = { x: 535, y: 280 };
 
 const catPos = [
   { x: 260, y: 280 },  // Enterprise - left

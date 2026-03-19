@@ -72,7 +72,54 @@ export default function WhatWeDo() {
           We own the entire lifecycle — discovery, design, development, deployment, and ongoing support. One team, no handoffs, no gaps.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px max-w-[1200px] mx-auto bg-white/[0.06] rounded-2xl overflow-hidden">
+        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto rounded-2xl overflow-hidden">
+          {/* Gradient grid lines overlay */}
+          <div className="absolute inset-0 pointer-events-none z-10">
+            {/* Vertical lines */}
+            <div
+              className="hidden lg:block absolute top-0 bottom-0"
+              style={{
+                left: "33.333%",
+                width: 2,
+                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)",
+              }}
+            />
+            <div
+              className="hidden lg:block absolute top-0 bottom-0"
+              style={{
+                left: "66.666%",
+                width: 2,
+                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent 100%)",
+              }}
+            />
+            {/* Horizontal lines */}
+            <div
+              className="hidden lg:block absolute left-0 right-0"
+              style={{
+                top: "33.333%",
+                height: 2,
+                background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
+              }}
+            />
+            <div
+              className="hidden lg:block absolute left-0 right-0"
+              style={{
+                top: "66.666%",
+                height: 2,
+                background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.08) 85%, transparent 100%)",
+              }}
+            />
+            {/* Mobile/tablet: single vertical line for 2-col */}
+            <div
+              className="hidden sm:block lg:hidden absolute top-0 bottom-0"
+              style={{
+                left: "50%",
+                width: 2,
+                background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent 100%)",
+              }}
+            />
+          </div>
+
           {cards.map((card, index) => {
             const Icon = card.icon;
             return (
@@ -83,7 +130,7 @@ export default function WhatWeDo() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="group flex flex-col items-center justify-center p-8 bg-[var(--bg-deep)]
+                className="group flex flex-col items-center justify-center p-8
                   hover:bg-white/[0.03] transition-colors duration-300 cursor-default"
               >
                 <div className="w-10 h-10 mb-4 flex items-center justify-center rounded-lg border border-white/[0.08]
