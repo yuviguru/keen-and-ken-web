@@ -8,6 +8,7 @@ import ProductsOrbit from "./components/ProductsOrbit";
 import ContactSection from "./components/ContactSection";
 import FloatingMobileCTA from "./components/FloatingMobileCTA";
 import Footer from "./components/Footer";
+import VibeRefactorTeaser from "./components/VibeRefactorTeaser";
 
 function SectionDivider() {
   return <div className="section-divider" />;
@@ -25,6 +26,8 @@ export default function Page() {
       <AIShowcase />
       <SectionDivider />
       <ProductsOrbit />
+      <SectionDivider />
+      <VibeRefactorTeaser />
       <SectionDivider />
       <ContactSection />
       <Footer />

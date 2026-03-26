@@ -4,11 +4,11 @@ import { Search, Palette, Code2, Rocket, BarChart3 } from "lucide-react";
 import GradientButton from "./GradientButton";
 
 const steps = [
-  { step: 1, title: "Discovery & Research", description: "We map your market, competitors, and operations — surfacing high-ROI opportunities in days, not weeks.", icon: Search },
-  { step: 2, title: "Design & Prototyping", description: "AI generates wireframes, UI variations, and user flows — from idea to interactive prototype 3x faster.", icon: Palette },
+  { step: 1, title: "Discovery & Research", description: "We map your market, competitors, and operations — surfacing high-value opportunities through structured, AI-assisted research.", icon: Search },
+  { step: 2, title: "Design & Prototyping", description: "AI generates wireframes, UI variations, and user flows — accelerating the path from idea to interactive prototype.", icon: Palette },
   { step: 3, title: "AI-Augmented Dev", description: "AI pair-programs with our engineers — writing tests, catching bugs, and shipping production-grade code.", icon: Code2 },
-  { step: 4, title: "Smart Deployment", description: "Automated CI/CD pipelines, instant rollbacks, and real-time anomaly detection — healthy around the clock.", icon: Rocket },
-  { step: 5, title: "Ongoing Optimization", description: "Post-launch, AI monitors user behavior, flags bottlenecks, and suggests improvements — always evolving.", icon: BarChart3 },
+  { step: 4, title: "Smart Deployment", description: "Automated CI/CD pipelines, instant rollbacks, and real-time anomaly detection — built to stay stable around the clock.", icon: Rocket },
+  { step: 5, title: "Ongoing Optimization", description: "Post-launch, AI monitors user behavior, flags bottlenecks, and recommends improvements — so your product keeps getting better.", icon: BarChart3 },
 ];
 
 export default function AIShowcase() {
@@ -19,10 +19,10 @@ export default function AIShowcase() {
         <div className="text-center mb-16 md:mb-20">
           <p className="section-label mb-4">How It Works</p>
           <h2 className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]">
-            AI at Every Step of the Process
+            How We Use AI to Build Better Software
           </h2>
           <p className="mt-5 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/45 max-w-2xl mx-auto leading-[var(--lh-body)] tracking-[var(--ls-body)]">
-            AI isn&apos;t just what we build — it&apos;s how we build. Every phase of our workflow is AI-augmented for faster timelines and smarter outcomes.
+            AI isn&apos;t just what we build — it&apos;s how we build. Every phase of our workflow is AI-augmented to reduce friction and deliver higher-quality results.
           </p>
         </div>
 
@@ -93,10 +93,10 @@ export default function AIShowcase() {
         <div className="mt-16 md:mt-20 text-center">
           <div className="glass-card p-8 md:p-10 max-w-[700px] mx-auto">
             <p className="text-white font-semibold text-[1.25rem] md:text-[1.5rem] mb-3 leading-[var(--lh-subhead)]">
-              The Result? 3x Faster Delivery. Fewer Bugs. Smarter Products.
+              The Result? Faster Delivery, Fewer Bugs, and Products Built to Last.
             </p>
             <p className="text-white/45 text-[var(--text-body)] max-w-md mx-auto mb-6 leading-[var(--lh-body)]">
-              Our AI-first workflow means production-ready software in weeks, not months — with continuous intelligence baked in from day one.
+              Our AI-first workflow compresses timelines without cutting corners — delivering production-ready software with continuous intelligence built in from day one.
             </p>
             <GradientButton
               size="md"

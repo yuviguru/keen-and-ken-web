@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { User, Building2, Phone, Mail, MessageSquare, CheckCircle, type LucideIcon } from "lucide-react";
-import GradientButton from "./GradientButton";
+import { User, Mail, Link2, Cpu, MessageSquare, AlertTriangle, CheckCircle, type LucideIcon } from "lucide-react";
+import GradientButton from "../../components/GradientButton";
 
 interface FieldConfig {
   name: string;
@@ -9,14 +9,23 @@ interface FieldConfig {
   type: string;
   icon: LucideIcon;
   required?: boolean;
+  options?: string[];
 }
 
 const fields: FieldConfig[] = [
   { name: "name", label: "Your Name", type: "text", icon: User, required: true },
   { name: "email", label: "Email Address", type: "email", icon: Mail, required: true },
-  { name: "company", label: "Company Name", type: "text", icon: Building2 },
-  { name: "contact", label: "Contact Number", type: "tel", icon: Phone, required: true },
-  { name: "message", label: "Tell us about your project", type: "textarea", icon: MessageSquare },
+  { name: "projectUrl", label: "Project / GitHub Link", type: "url", icon: Link2, required: true },
+  {
+    name: "aiTool",
+    label: "AI Tool Used",
+    type: "select",
+    icon: Cpu,
+    required: true,
+    options: ["Lovable", "Bolt.new", "Cursor", "Replit", "v0", "Windsurf", "GitHub Copilot", "Claude Code", "Other"],
+  },
+  { name: "description", label: "Describe the Problem", type: "textarea", icon: MessageSquare, required: true },
+  { name: "errorDetails", label: "Error Messages / Details (optional)", type: "textarea", icon: AlertTriangle },
 ];
 
 function FloatingInput({
@@ -26,12 +35,13 @@ function FloatingInput({
 }: {
   field: FieldConfig;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }) {
   const [focused, setFocused] = useState(false);
   const isActive = focused || value.length > 0;
   const Icon = field.icon;
   const isTextarea = field.type === "textarea";
+  const isSelect = field.type === "select";
 
   const sharedClasses = `peer w-full pl-12 pr-5 pt-5 pb-2 rounded-xl
     bg-white/[0.03] border border-white/[0.08]
@@ -62,6 +72,23 @@ function FloatingInput({
           rows={4}
           className={`${sharedClasses} resize-none`}
         />
+      ) : isSelect ? (
+        <select
+          name={field.name}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={field.required}
+          className={`${sharedClasses} appearance-none cursor-pointer`}
+        >
+          <option value="" disabled hidden />
+          {field.options?.map((opt) => (
+            <option key={opt} value={opt} className="bg-[var(--bg-surface)] text-white">
+              {opt}
+            </option>
+          ))}
+        </select>
       ) : (
         <input
           type={field.type}
@@ -92,18 +119,19 @@ function FloatingInput({
   );
 }
 
-export default function ContactSection() {
+export default function VRIntakeForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
-    contact: "",
-    message: "",
+    projectUrl: "",
+    aiTool: "",
+    description: "",
+    errorDetails: "",
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -113,7 +141,7 @@ export default function ContactSection() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/viberefactor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -125,7 +153,7 @@ export default function ContactSection() {
       }
 
       setStatus("success");
-      setFormData({ name: "", email: "", company: "", contact: "", message: "" });
+      setFormData({ name: "", email: "", projectUrl: "", aiTool: "", description: "", errorDetails: "" });
     } catch (err) {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -134,10 +162,9 @@ export default function ContactSection() {
 
   return (
     <section
-      id="contact"
+      id="vr-intake"
       className="relative px-6 md:px-12 lg:px-16 py-24 md:py-32 scroll-mt-20"
     >
-      {/* Subtle gradient background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -149,20 +176,19 @@ export default function ContactSection() {
       <div className="relative z-10 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left side */}
         <div>
-          <p className="section-label mb-4">
-            Get In Touch
-          </p>
+          <p className="section-label mb-4">Get Started</p>
           <h2 className="text-[var(--text-h3)] md:text-[var(--text-h2)] font-bold text-white leading-[var(--lh-heading)] tracking-[var(--ls-heading)]">
-            Let&apos;s Talk About Your Next Build
+            Submit Your Rescue Request
           </h2>
           <p className="mt-5 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/45 leading-[var(--lh-body)] tracking-[var(--ls-body)] max-w-md">
-            Tell us about your project. We&apos;ll respond within 24 hours with a free assessment of how AI can help.
+            Share your project details and we&apos;ll respond within 24 hours with an initial assessment and recommended service tier.
           </p>
           <div className="mt-8 space-y-3">
             {[
-              "Free 30-minute strategy call",
-              "No upfront commitment",
+              "Free initial diagnosis",
+              "No technical knowledge required",
               "Response within 24 hours",
+              "If we can't fix it, you don't pay",
             ].map((item) => (
               <div key={item} className="flex items-center gap-3">
                 <CheckCircle className="w-4 h-4 text-[var(--accent-magenta)]/70 shrink-0" />
@@ -178,15 +204,15 @@ export default function ContactSection() {
             {status === "success" ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
                 <CheckCircle className="w-12 h-12 text-[var(--accent-magenta)] mb-4" />
-                <h3 className="text-[var(--text-h4)] font-bold text-white mb-2 leading-[var(--lh-subhead)]">Thank you!</h3>
+                <h3 className="text-[var(--text-h4)] font-bold text-white mb-2 leading-[var(--lh-subhead)]">Rescue Request Received!</h3>
                 <p className="text-white/45 text-[var(--text-body)] max-w-xs leading-[var(--lh-body)]">
-                  We&apos;ll reach out within 24 hours. Looking forward to learning about your project.
+                  We&apos;ll review your project and respond within 24 hours with a diagnosis and recommended next steps.
                 </p>
                 <button
                   onClick={() => setStatus("idle")}
                   className="mt-6 text-sm text-white/40 hover:text-white transition-colors underline underline-offset-4"
                 >
-                  Send another message
+                  Submit another request
                 </button>
               </div>
             ) : (
@@ -211,12 +237,12 @@ export default function ContactSection() {
                     variant="primary"
                     className={`w-full ${status === "submitting" ? "opacity-70 pointer-events-none" : ""}`}
                   >
-                    {status === "submitting" ? "Sending..." : "Request Free Consultation"}
+                    {status === "submitting" ? "Sending..." : "Submit Rescue Request"}
                   </GradientButton>
                 </div>
 
                 <p className="text-center text-white/20 text-[var(--text-caption)] mt-3 tracking-[var(--ls-body)]">
-                  We respect your privacy. No spam, ever.
+                  We respect your privacy. Your code access is scoped and temporary.
                 </p>
               </form>
             )}

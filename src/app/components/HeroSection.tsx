@@ -85,8 +85,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="mt-6 text-[var(--text-body)] md:text-[var(--text-body-lg)] text-white/50 max-w-2xl mx-auto leading-[var(--lh-relaxed)] tracking-[var(--ls-body)]">
-          Custom AI agents, workflow automation, and full-stack products —
-          so you can scale without scaling headcount.
+          Custom AI agents, workflow automation, and full-stack products — delivered end to end, with training so your team runs it all independently.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

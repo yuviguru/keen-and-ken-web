@@ -9,10 +9,11 @@ const navLinks = [
   { label: "How It Works", href: "#solutions" },
   { label: "Products", href: "#products" },
   { label: "Contact", href: "#contact" },
+  { label: "VibeRefactor", href: "/viberefactor" },
 ];
 
 const socialLinks = [
-  { icon: Linkedin, href: "https://linkedin.com/company/keenandken", label: "LinkedIn" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/keen-ken-solutions", label: "LinkedIn" },
   { icon: Instagram, href: "https://instagram.com/keenandken", label: "Instagram" },
   { icon: Twitter, href: "https://x.com/keenandken", label: "Twitter" },
   { icon: Youtube, href: "https://youtube.com/@keenandken", label: "YouTube" },
@@ -34,7 +35,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-white/30 text-[var(--text-small)] leading-[var(--lh-body)] text-center md:text-left max-w-[260px] tracking-[var(--ls-body)]">
-              Think AI, Scale Your Business. Smarter decisions, faster outcomes, limitless possibilities.
+              End-to-end AI systems, built to hand over. One team, full ownership, no dependency.
             </p>
           </div>
 

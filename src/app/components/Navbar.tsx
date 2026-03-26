@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import GradientButton from "./GradientButton";
 
-const navItems = [
+const defaultNavItems = [
   { label: "Services", href: "#services" },
   { label: "How It Works", href: "#solutions" },
   { label: "Products", href: "#products" },
@@ -20,7 +20,14 @@ function scrollToSection(href: string) {
   }
 }
 
-export default function Navbar() {
+interface NavbarProps {
+  navItems?: { label: string; href: string }[];
+  logoHref?: string;
+  ctaLabel?: string;
+  ctaTarget?: string;
+}
+
+export default function Navbar({ navItems = defaultNavItems, logoHref, ctaLabel = "Book a Call", ctaTarget = "#contact" }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -46,8 +53,8 @@ export default function Navbar() {
       <nav className="flex items-center justify-between px-6 md:px-[90px] h-16 md:h-[72px] max-w-[1400px] mx-auto">
         {/* Logo */}
         <a
-          href="#"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          href={logoHref || "#"}
+          onClick={logoHref ? undefined : (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
           className="flex items-center gap-3 shrink-0"
         >
           <img src="/logo.svg" alt="Keen & Ken" className="w-7 h-7 md:w-8 md:h-8" />
@@ -75,9 +82,9 @@ export default function Navbar() {
           <GradientButton
             size="sm"
             variant="outline"
-            onClick={() => scrollToSection("#contact")}
+            onClick={() => scrollToSection(ctaTarget)}
           >
-            Book a Call
+            {ctaLabel}
           </GradientButton>
         </div>
 
@@ -118,10 +125,10 @@ export default function Navbar() {
             variant="outline"
             onClick={() => {
               setMobileOpen(false);
-              setTimeout(() => scrollToSection("#contact"), 300);
+              setTimeout(() => scrollToSection(ctaTarget), 300);
             }}
           >
-            Book a Call
+            {ctaLabel}
           </GradientButton>
         </div>
       </div>

@@ -25,8 +25,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://keenken.com"),
   title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
   description:
-    "AI automation services and AI-integrated development for businesses. We build custom AI agents, workflow automation systems, HRMS, CRM, EdTech platforms, and intelligent software. Book a free consultation.",
+    "Keen & Ken builds AI systems that run your business — custom AI agents, workflow automation, and full-stack platforms delivered end to end. Book a free consultation.",
   keywords: [
+    "Keen and Ken",
+    "Keen & Ken",
+    "keenken",
     "AI automation services",
     "AI integrated development",
     "custom AI agents",
@@ -42,12 +45,11 @@ export const metadata: Metadata = {
     "HRMS software",
     "CRM development",
     "micro SaaS development",
-    "Keen and Ken",
   ],
   openGraph: {
     title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
     description:
-      "We build AI systems that run your business. Custom AI agents, workflow automation, enterprise platforms, and AI-powered digital products.",
+      "We build AI systems that run your business. Custom AI agents, workflow automation, and enterprise platforms — one team, end to end, with training to make you self-sufficient.",
     url: "https://keenken.com",
     siteName: "Keen & Ken",
     type: "website",
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Keen & Ken | AI Automation Services & AI-Integrated Development",
     description:
-      "Custom AI agents, workflow automation, and intelligent software development. Book a free AI consultation.",
+      "Custom AI agents, workflow automation, and full-stack products — delivered end to end. Book a free consultation.",
   },
   robots: {
     index: true,
@@ -96,9 +98,15 @@ const jsonLd = {
         url: "https://keenken.com/logo.svg",
       },
       description:
-        "AI automation services and AI-integrated development company. We build custom AI agents, workflow automation systems, and intelligent software for businesses worldwide.",
+        "End-to-end AI systems and software development — custom AI agents, workflow automation, and full-stack platforms with training for client independence.",
       email: "info@keenken.com",
-      sameAs: [],
+      sameAs: [
+        "https://www.linkedin.com/company/keen-ken-solutions",
+        "https://www.instagram.com/keenandken",
+        "https://x.com/keenandken",
+        "https://www.youtube.com/@keenandken",
+        "https://discord.gg/keenandken",
+      ],
     },
     {
       "@type": "ProfessionalService",
@@ -182,7 +190,7 @@ const jsonLd = {
           name: "How does AI-integrated development work?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Our AI-integrated development process uses AI at every step — from discovery and research, through design and prototyping, to development, deployment, and continuous optimization. AI pair-programs with our engineers, accelerating delivery while maintaining production-grade quality.",
+            text: "Our AI-integrated development process uses AI at every step — from discovery and research, through design and prototyping, to development, deployment, and continuous optimization. AI pair-programs with our engineers, accelerating delivery while maintaining production-grade quality. Every project includes training and documentation so your team can operate independently.",
           },
         },
         {
