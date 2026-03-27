@@ -9,6 +9,7 @@ import ContactSection from "./components/ContactSection";
 import FloatingMobileCTA from "./components/FloatingMobileCTA";
 import Footer from "./components/Footer";
 import VibeRefactorTeaser from "./components/VibeRefactorTeaser";
+import VibeRefactorBanner from "./components/VibeRefactorBanner";
 
 function SectionDivider() {
   return <div className="section-divider" />;
@@ -19,6 +20,7 @@ export default function Page() {
     <main>
       <Navbar />
       <HeroSection />
+      <VibeRefactorBanner />
       <SectionDivider />
       <WhatWeDo />
       <TrustBar />

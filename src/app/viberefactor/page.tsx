@@ -9,6 +9,7 @@ import VRIssues from "./components/VRIssues";
 import VRPlatforms from "./components/VRPlatforms";
 import VRWhyUs from "./components/VRWhyUs";
 import VRFAQ from "./components/VRFAQ";
+import VRPlatformTeaser from "./components/VRPlatformTeaser";
 import VRIntakeForm from "./components/VRIntakeForm";
 
 export const metadata: Metadata = {
@@ -143,6 +144,8 @@ export default function VibeRefactorPage() {
       <VRPlatforms />
       <SectionDivider />
       <VRWhyUs />
+      <SectionDivider />
+      <VRPlatformTeaser />
       <SectionDivider />
       <VRFAQ />
       <SectionDivider />
