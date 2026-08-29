@@ -152,13 +152,6 @@ const services = [
   },
 ];
 
-const stats = [
-  { value: "9+", label: "Core Services" },
-  { value: "50+", label: "Projects Delivered" },
-  { value: "100%", label: "Client Retention" },
-  { value: "3+", label: "Years Building" },
-];
-
 export default function WhatWeDo() {
   const [selected, setSelected] = useState(0);
   const service = services[selected];
@@ -328,22 +321,6 @@ export default function WhatWeDo() {
           </div>
         </div>
 
-        {/* ── Stats ── */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden">
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="bg-[#050505] px-6 py-8 text-center"
-            >
-              <div className="gradient-text font-bold text-[var(--text-h2)] leading-none mb-2">
-                {stat.value}
-              </div>
-              <div className="text-white/40 text-[var(--text-small)] tracking-[var(--ls-wide)] uppercase">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
 
         {/* ── CTA ── */}
         <div className="mt-12 text-center">

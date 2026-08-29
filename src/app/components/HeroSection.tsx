@@ -57,27 +57,6 @@ export default function HeroSection() {
 
       {/* Content — CSS animation only */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 text-center animate-fade-in">
-        {/* Social proof badge */}
-        <div className="mb-8 flex justify-center">
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04]">
-            <div className="flex -space-x-2">
-              {[
-                "bg-gradient-to-br from-purple-400 to-pink-500",
-                "bg-gradient-to-br from-blue-400 to-purple-500",
-                "bg-gradient-to-br from-pink-400 to-red-500",
-              ].map((bg, i) => (
-                <div
-                  key={i}
-                  className={`w-6 h-6 rounded-full border-2 border-[var(--bg-deep)] ${bg}`}
-                />
-              ))}
-            </div>
-            <span className="text-[var(--text-small)] text-white/60 tracking-[var(--ls-body)]">
-              Trusted by growing businesses
-            </span>
-          </div>
-        </div>
-
         <h1 className="text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.5rem] font-extrabold leading-[1.2] tracking-[var(--ls-tight)] text-white max-w-5xl mx-auto">
           We Build AI Systems
           <br />
