@@ -49,7 +49,7 @@ export async function POST(request: Request) {
           phone: contact,
           intent: intent || "",
           message: message || "",
-          source: "Website - Keen & Ken",
+          source: "Keen & Ken",
         }),
         signal: AbortSignal.timeout(8000),
       });
