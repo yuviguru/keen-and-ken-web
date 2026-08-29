@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { User, Building2, Phone, Mail, MessageSquare, CheckCircle, type LucideIcon } from "lucide-react";
+import { User, Building2, Phone, Mail, MessageSquare, CheckCircle, Sparkles, type LucideIcon } from "lucide-react";
 import GradientButton from "./GradientButton";
 
 interface FieldConfig {
@@ -9,6 +9,7 @@ interface FieldConfig {
   type: string;
   icon: LucideIcon;
   required?: boolean;
+  options?: string[];
 }
 
 const fields: FieldConfig[] = [
@@ -16,6 +17,14 @@ const fields: FieldConfig[] = [
   { name: "email", label: "Email Address", type: "email", icon: Mail, required: true },
   { name: "company", label: "Company Name", type: "text", icon: Building2 },
   { name: "contact", label: "Contact Number", type: "tel", icon: Phone, required: true },
+  {
+    name: "intent",
+    label: "What are you looking for?",
+    type: "select",
+    icon: Sparkles,
+    required: true,
+    options: ["Automate my leads/inbox", "Website or brand work", "Something else"],
+  },
   { name: "message", label: "Tell us about your project", type: "textarea", icon: MessageSquare },
 ];
 
@@ -26,12 +35,13 @@ function FloatingInput({
 }: {
   field: FieldConfig;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }) {
   const [focused, setFocused] = useState(false);
   const isActive = focused || value.length > 0;
   const Icon = field.icon;
   const isTextarea = field.type === "textarea";
+  const isSelect = field.type === "select";
 
   const sharedClasses = `peer w-full pl-12 pr-5 pt-5 pb-2 rounded-xl
     bg-white/[0.03] border border-white/[0.08]
@@ -62,6 +72,23 @@ function FloatingInput({
           rows={4}
           className={`${sharedClasses} resize-none`}
         />
+      ) : isSelect ? (
+        <select
+          name={field.name}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={field.required}
+          className={`${sharedClasses} appearance-none cursor-pointer`}
+        >
+          <option value="" disabled hidden />
+          {field.options?.map((opt) => (
+            <option key={opt} value={opt} className="bg-[var(--bg-surface)] text-white">
+              {opt}
+            </option>
+          ))}
+        </select>
       ) : (
         <input
           type={field.type}
@@ -98,12 +125,13 @@ export default function ContactSection() {
     email: "",
     company: "",
     contact: "",
+    intent: "",
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -125,7 +153,7 @@ export default function ContactSection() {
       }
 
       setStatus("success");
-      setFormData({ name: "", email: "", company: "", contact: "", message: "" });
+      setFormData({ name: "", email: "", company: "", contact: "", intent: "", message: "" });
     } catch (err) {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
