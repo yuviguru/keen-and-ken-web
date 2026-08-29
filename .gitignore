@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# .env.local.example is the committed exception: key NAMES only, no values, per
+# docs/engineering-standards.md's "commit .env.example with key names and no
+# values" rule. Was silently never-committed before 2026-08-29 integration pass
+# because this blanket .env* pattern matched it too.
+!.env.local.example
 
 # vercel
 .vercel

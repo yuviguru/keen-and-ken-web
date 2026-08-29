@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, DM_Sans, Fira_Code } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import KeenKenWidget from "./components/KeenKenWidget";
 
 const manrope = Manrope({
   variable: "--font-display",
@@ -232,6 +233,7 @@ export default function RootLayout({
         className={`${manrope.variable} ${dmSans.variable} ${firaCode.variable} antialiased`}
       >
         {children}
+        <KeenKenWidget />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script
