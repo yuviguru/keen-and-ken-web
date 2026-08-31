@@ -220,12 +220,28 @@ export default function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 {fields.map((field) => (
-                  <FloatingInput
-                    key={field.name}
-                    field={field}
-                    value={formData[field.name as keyof typeof formData]}
-                    onChange={handleChange}
-                  />
+                  <React.Fragment key={field.name}>
+                    <FloatingInput
+                      field={field}
+                      value={formData[field.name as keyof typeof formData]}
+                      onChange={handleChange}
+                    />
+                    {field.name === "contact" && (
+                      <p className="text-white/25 text-[var(--text-caption)] leading-[var(--lh-body)] tracking-[var(--ls-body)] -mt-2">
+                        By providing your phone number, you agree to receive text messages from Keen & Ken Solutions
+                        about your inquiry (a confirmation and up to two optional follow-ups). Msg & data rates may
+                        apply. Reply STOP to opt out. See our{" "}
+                        <a href="/privacy-policy" className="underline hover:text-white/50">
+                          Privacy Policy
+                        </a>{" "}
+                        and{" "}
+                        <a href="/terms-of-service" className="underline hover:text-white/50">
+                          Terms of Service
+                        </a>
+                        .
+                      </p>
+                    )}
+                  </React.Fragment>
                 ))}
 
                 {status === "error" && (

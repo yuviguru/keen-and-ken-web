@@ -93,7 +93,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-white/[0.04]">
+        <div className="pt-6 border-t border-white/[0.04] flex flex-col items-center gap-3">
+          <div className="flex items-center gap-4">
+            <a
+              href="/privacy-policy"
+              className="text-white/20 hover:text-white/50 text-[var(--text-caption)] tracking-[var(--ls-body)] underline underline-offset-4"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms-of-service"
+              className="text-white/20 hover:text-white/50 text-[var(--text-caption)] tracking-[var(--ls-body)] underline underline-offset-4"
+            >
+              Terms of Service
+            </a>
+          </div>
           <p className="text-center text-white/15 text-[var(--text-caption)] tracking-[var(--ls-body)]">
             &copy; {new Date().getFullYear()} Keen & Ken. All rights reserved.
           </p>
